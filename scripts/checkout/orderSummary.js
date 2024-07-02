@@ -1,11 +1,8 @@
 import { getProduct } from '../../data/products.js';
-import {cart, removeFromCart, updateQty, updateCartQuantity, updateDeliveryOption} from '../../data/cart.js';
-import amzCart from '../../data/cartClass.js'
+import cart from '../../data/cartClass.js'
 import { formatCurrency } from "../utils/money.js";
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {calculateDeliveryDate, deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import {renderPaymentSummary} from "./paymentSummary.js";
-import isSatSun from "../utils/weekend.js";
 import {renderCheckoutHeader} from "./header.js";
 
 
@@ -28,7 +25,7 @@ export function renderOrderSummary() {
 	// document.querySelector('.return-to-home-link').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
 	let cartSummaryHTML = ''
 	
-	amzCart.cartItems.forEach(cartItem => {
+	cart.cartItems.forEach(cartItem => {
 		const productId = cartItem.productId;
 		const matchingProduct = getProduct(productId);
 		
@@ -118,7 +115,7 @@ export function renderOrderSummary() {
 		.forEach(deleteButton => {
 			deleteButton.addEventListener('click', () => {
 				const {productId} = deleteButton.dataset
-				amzCart.removeFromCart(productId)
+				cart.removeFromCart(productId)
 				// const cartItemContainer = document.querySelector(`.js-cart-item-container-${productId}`)
 				// cartItemContainer.remove()
 				renderOrderSummary()    // used mvc instead of dom (above two lines)
@@ -156,8 +153,8 @@ export function renderOrderSummary() {
 					return
 				}
 				
-				amzCart.updateQty(productId, newQty)
-				amzCart.updateCartQuantity()
+				cart.updateQty(productId, newQty)
+				cart.updateCartQuantity()
 				renderOrderSummary()
 				renderPaymentSummary()
 				// document.querySelector('.return-to-home-link').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
@@ -176,7 +173,7 @@ export function renderOrderSummary() {
 		.forEach(element => {
 			element.addEventListener('click', () => {
 				const {productId, deliveryOptionId} = element.dataset;
-				amzCart.updateDeliveryOption(productId, deliveryOptionId);
+				cart.updateDeliveryOption(productId, deliveryOptionId);
 				renderOrderSummary();
 				renderPaymentSummary();
 			});
