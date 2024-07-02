@@ -1,3 +1,5 @@
+import {formatCurrency} from "../scripts/utils/money.js";
+
 export function getProduct(productId) {
   let matchingItem
   products.forEach(item => {
@@ -25,8 +27,12 @@ class Product {
     this.keywords = productDetails.keywords;
   }
   
-  getImageURL() {
+  getRatingURL() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`
+  }
   
+  getProductPrice() {
+    return `$${formatCurrency(this.priceCents)}`
   }
 }
 
