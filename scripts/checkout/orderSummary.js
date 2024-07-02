@@ -1,5 +1,6 @@
 import { getProduct } from '../../data/products.js';
 import {cart, removeFromCart, updateQty, updateCartQuantity, updateDeliveryOption} from '../../data/cart.js';
+import amzCart from '../../data/cartClass.js'
 import { formatCurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {calculateDeliveryDate, deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
@@ -10,24 +11,24 @@ import {renderCheckoutHeader} from "./header.js";
 
 export function renderOrderSummary() {
 	
-	console.group('Exercise 15')
-	const today = dayjs();
-	const afterFiveDays = today.add(5, 'day')
-	console.log(afterFiveDays.format('MMMM DD'))
-	console.log(today.add(1, 'month').format('MMMM DD'))
-	console.log(today.subtract(1, 'month').format('MMMM DD'));
-	console.log(today.format('dddd'))
-	
-	isSatSun(today)
-	isSatSun(today.add(5, 'day'))
-	isSatSun(today.add(6, 'day'))
-	isSatSun(today.add(7, 'day'))
-	console.groupEnd()
+	// console.group('Exercise 15')
+	// const today = dayjs();
+	// const afterFiveDays = today.add(5, 'day')
+	// console.log(afterFiveDays.format('MMMM DD'))
+	// console.log(today.add(1, 'month').format('MMMM DD'))
+	// console.log(today.subtract(1, 'month').format('MMMM DD'));
+	// console.log(today.format('dddd'))
+	//
+	// isSatSun(today)
+	// isSatSun(today.add(5, 'day'))
+	// isSatSun(today.add(6, 'day'))
+	// isSatSun(today.add(7, 'day'))
+	// console.groupEnd()
 	
 	// document.querySelector('.return-to-home-link').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
 	let cartSummaryHTML = ''
 	
-	cart.forEach(cartItem => {
+	amzCart.cartItems.forEach(cartItem => {
 		const productId = cartItem.productId;
 		const matchingProduct = getProduct(productId);
 		
@@ -117,7 +118,7 @@ export function renderOrderSummary() {
 		.forEach(deleteButton => {
 			deleteButton.addEventListener('click', () => {
 				const {productId} = deleteButton.dataset
-				removeFromCart(productId)
+				amzCart.removeFromCart(productId)
 				// const cartItemContainer = document.querySelector(`.js-cart-item-container-${productId}`)
 				// cartItemContainer.remove()
 				renderOrderSummary()    // used mvc instead of dom (above two lines)
@@ -155,8 +156,8 @@ export function renderOrderSummary() {
 					return
 				}
 				
-				updateQty(productId, newQty)
-				updateCartQuantity()
+				amzCart.updateQty(productId, newQty)
+				amzCart.updateCartQuantity()
 				renderOrderSummary()
 				renderPaymentSummary()
 				// document.querySelector('.return-to-home-link').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
@@ -175,7 +176,7 @@ export function renderOrderSummary() {
 		.forEach(element => {
 			element.addEventListener('click', () => {
 				const {productId, deliveryOptionId} = element.dataset;
-				updateDeliveryOption(productId, deliveryOptionId);
+				amzCart.updateDeliveryOption(productId, deliveryOptionId);
 				renderOrderSummary();
 				renderPaymentSummary();
 			});

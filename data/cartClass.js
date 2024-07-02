@@ -10,10 +10,10 @@ class Cart {
 	}
 	
 	loadCart() {
-		this.cartItems = JSON.parse(localStorage.getItem('cart-oop')) || []
+		this.cartItems = JSON.parse(localStorage.getItem(this.#cartKey)) || []
 	}
 	
-	cartQuantity = JSON.parse(localStorage.getItem('cartQty-oop')) || null;
+	cartQuantity = JSON.parse(localStorage.getItem(this.#qtyKey)) || null;
 	
 	addToCart(productId) {
 		const selectorElement = document.querySelector(`.js-quantity-selector-${productId}`)
@@ -26,13 +26,13 @@ class Cart {
 		});
 		
 		if (matchingItem) {
-			// matchingItem.quantity += Number(selectorElement.value)
-			matchingItem.quantity += 1
+			matchingItem.quantity += Number(selectorElement.value)
+			// matchingItem.quantity += 1
 		} else {
 			this.cartItems.push({
 				productId: productId,
-				// quantity: Number(selectorElement.value),
-				quantity: 1,
+				quantity: Number(selectorElement.value),
+				// quantity: 1,
 				deliveryOptionId: '1'
 			})
 		}
@@ -89,8 +89,5 @@ class Cart {
 	}
 }
 
-const cart = new Cart('cartOOP', 'qtyOOP');
-const businessCart = new Cart('businessCart', 'businessQty')
-
-console.log(cart)
-console.log(businessCart)
+const cart = new Cart('cart', 'cartQty');
+export default cart
