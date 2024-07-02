@@ -1,11 +1,11 @@
 class Cart {
 	cartItems;
-	cartKey;
-	qtyKey;
+	#cartKey;
+	#qtyKey;
 	
 	constructor(cartKey, qtyKey) {
-		this.cartKey = cartKey;
-		this.qtyKey = qtyKey;
+		this.#cartKey = cartKey;
+		this.#qtyKey = qtyKey;
 		this.loadCart();
 	}
 	
@@ -36,7 +36,7 @@ class Cart {
 				deliveryOptionId: '1'
 			})
 		}
-		localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems))
+		localStorage.setItem(this.#cartKey, JSON.stringify(this.cartItems))
 	}
 	
 	updateCartQuantity() {
@@ -44,7 +44,7 @@ class Cart {
 		this.cartItems.forEach(cartItem => {
 			cartQuantity += cartItem.quantity
 		})
-		localStorage.setItem(this.qtyKey, JSON.stringify(cartQuantity))
+		localStorage.setItem(this.#qtyKey, JSON.stringify(cartQuantity))
 	}
 	
 	removeFromCart(productId) {
@@ -58,7 +58,7 @@ class Cart {
 		this.cartItems = newCart
 		this.cartQuantity = newCartQty
 		this.saveToLocCart()
-		localStorage.setItem(this.qtyKey, JSON.stringify(this.cartQuantity))
+		localStorage.setItem(this.#qtyKey, JSON.stringify(this.cartQuantity))
 	}
 	
 	updateQty(productId, newQuantity) {
@@ -68,7 +68,7 @@ class Cart {
 				document.querySelector(`.js-quantity-label-${productId}`)
 					.innerHTML = `${cartItem.quantity}`
 			}
-			localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems))
+			localStorage.setItem(this.#cartKey, JSON.stringify(this.cartItems))
 		})
 	}
 	
@@ -85,7 +85,7 @@ class Cart {
 	}
 	
 	saveToLocCart() {
-		localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems))
+		localStorage.setItem(this.#cartKey, JSON.stringify(this.cartItems))
 	}
 }
 
