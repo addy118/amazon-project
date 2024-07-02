@@ -1,8 +1,7 @@
 import { products } from '../data/products.js'
-import { cartQuantity, addToCart, updateCartQuantity } from '../data/cart.js'
+import cart from '../data/cartClass.js'
 
-document.querySelector('.js-cart-quantity')
-	.innerHTML = cartQuantity
+document.querySelector('.js-cart-quantity').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))}`
 products.forEach((product) => {
 	document.querySelector('.js-product-grid').innerHTML += `
 		<div class="product-container">
@@ -92,8 +91,8 @@ document.querySelectorAll('.js-add-to-cart-button')
 		button.addEventListener('click', () => {
 			const {productId} = button.dataset;
 			showAddedAnimation(productId)
-			addToCart(productId)
-			updateCartQuantity()
+			cart.addToCart(productId)
+			cart.updateCartQuantity()
 			document.querySelector('.js-cart-quantity')
 				.innerHTML = JSON.parse(localStorage.getItem('cartQty'))
 		});
