@@ -74,6 +74,20 @@ class Clothing extends Product {
 //   ]
 // });
 // console.log(tshirt)
+//
+// const object = {
+//   a: 2,
+//   // b: this.a,   // this will be undefined here
+//   get b() {
+//     return this.a
+//   },    // this will point to outer object as it is used in get function, but b will be still a prop
+//   method() {
+//     console.log(this)
+//   }
+// }
+//
+// console.log(object.a)
+// console.log(object.b)
 
 export const products = [
   {
