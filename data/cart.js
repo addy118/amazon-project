@@ -1,3 +1,5 @@
+// import {products} from "./products";
+
 export let cart;
 loadCart()
 export function loadCart() {
@@ -79,4 +81,16 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 
 function saveToLocCart() {
 	localStorage.setItem('cart', JSON.stringify(cart))
+}
+
+export function loadBCart(func) {
+	const xhr = new XMLHttpRequest()
+
+	xhr.addEventListener('load', () => {
+		console.log(xhr.response)
+		func()
+	})
+
+	xhr.open('GET', 'https://supersimplebackend.dev/cart')
+	xhr.send()
 }
