@@ -5,7 +5,6 @@ import {calculateDeliveryDate, deliveryOptions, getDeliveryOption} from '../../d
 import {renderPaymentSummary} from "./paymentSummary.js";
 import {renderCheckoutHeader} from "./header.js";
 
-
 export function renderOrderSummary() {
 	
 	// console.group('Exercise 15')
