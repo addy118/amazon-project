@@ -1,14 +1,24 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from "./checkout/header.js";
-import {loadProducts} from "../data/products.js";
+import {loadProducts, fetchProducts} from "../data/products.js";
 import {loadBCart} from "../data/cart.js";
 // import '../data/car.js';
 // import '../data/backend-practice.js';
 
 
+// using fetch()
+
+
 // using Promises simultaneously
 Promise.all([
+	fetchProducts().then(() => {
+		fetch('https://supersimplebackend.dev/cart').then(response => {
+			return response.text()
+		}).then((cartResponse) => {
+			console.log(`${cartResponse} by fetch()`)
+		})
+	}),
 	new Promise(resolve => {
 		loadProducts(() => {
 			resolve();
@@ -19,12 +29,12 @@ Promise.all([
 			resolve();
 		})
 	})
-	
+
 ]).then(() => {
 	renderCheckoutHeader();
 	renderOrderSummary();
 	renderPaymentSummary();
-})
+});
 
 // using Promises one after the other
 // new Promise(resolve => {
