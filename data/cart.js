@@ -94,3 +94,11 @@ export function loadBCart(func) {
 	xhr.open('GET', 'https://supersimplebackend.dev/cart')
 	xhr.send()
 }
+
+
+// ex. 18h
+export async function fetchCart() {
+	const response = await fetch('https://supersimplebackend.dev/cart')
+	const cart = await response.text()
+	console.log(`fetchCart(): ${cart}`)
+}

@@ -803,7 +803,7 @@ export function fetchProducts() {
       return new Product(productDetails);
     })
     
-    console.log('products loaded by fetch')
+    console.log(`fetchProducts(): load products`)
   })
   //   .catch((error) => {
   //   console.log('Unexpected Error in Promise')
