@@ -7,34 +7,57 @@ import {loadBCart} from "../data/cart.js";
 // import '../data/backend-practice.js';
 
 
-// using fetch()
+async function loadPage() {
+	try {
+		// throw 'error'
+		await fetchProducts();
+		
+		const value = await new Promise((resolve) => {
+			// throw 'error'
+			loadBCart(() => {
+				// reject()
+				resolve()
+			})
+		}).catch((error) => {
+			console.log('Unexpected Error in Promise')
+		})
+	} catch {
+		console.log('Unexpected Error in Synchronous Code')
+	}
 
+	renderCheckoutHeader()
+	renderOrderSummary()
+	renderPaymentSummary()
+	
+	console.log('async success')
+}
+loadPage()
 
 // using Promises simultaneously
-Promise.all([
-	fetchProducts().then(() => {
-		fetch('https://supersimplebackend.dev/cart').then(response => {
-			return response.text()
-		}).then((cartResponse) => {
-			console.log(`${cartResponse} by fetch()`)
-		})
-	}),
-	new Promise(resolve => {
-		loadProducts(() => {
-			resolve();
-		})
-	}),
-	new Promise(resolve => {
-		loadBCart(() => {
-			resolve();
-		})
-	})
-
-]).then(() => {
-	renderCheckoutHeader();
-	renderOrderSummary();
-	renderPaymentSummary();
-});
+// Promise.all([
+// 	fetchProducts().then(() => {
+// 		fetch('https://supersimplebackend.dev/cart').then(response => {
+// 			return response.text()
+// 		}).then((cartResponse) => {
+// 			console.log(`${cartResponse} by fetch()`)
+// 		})
+// 	}),
+// 	new Promise(resolve => {
+// 		loadProducts(() => {
+// 			resolve();
+// 		})
+// 	}),
+// 	new Promise(resolve => {
+// 		loadBCart(() => {
+// 			resolve();
+// 		})
+// 	})
+//
+// ]).then(() => {
+// 	renderCheckoutHeader();
+// 	renderOrderSummary();
+// 	renderPaymentSummary();
+// });
 
 // using Promises one after the other
 // new Promise(resolve => {
@@ -62,3 +85,5 @@ Promise.all([
 // 		renderPaymentSummary();
 // 	})
 // })
+
+// loadProducts()

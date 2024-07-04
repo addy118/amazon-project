@@ -795,7 +795,7 @@ export function fetchProducts() {
   const promise = fetch('https://supersimplebackend.dev/products').then(response => {
     return response.json()
   }).then(productDetails => {
-    const product = productDetails.map(productDetails => {
+    products = productDetails.map(productDetails => {
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
       }
@@ -804,7 +804,10 @@ export function fetchProducts() {
     })
     
     console.log('products loaded by fetch')
-  });
+  })
+  //   .catch((error) => {
+  //   console.log('Unexpected Error in Promise')
+  // });
   
   return promise;
 }
@@ -817,20 +820,24 @@ export function fetchProducts() {
 // using XMLHttpRequest()
 export function loadProducts(func) {
   const xhr = new XMLHttpRequest()
-  
+
   xhr.addEventListener('load', () => {
     products = JSON.parse(xhr.response).map(productDetails => {
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
       }
-      
+
       return new Product(productDetails);
     })
-    
+
     func()
     console.log('products loaded')
   })
   
+  xhr.addEventListener('error', (error) => {
+    console.log('Unexpected Error in XMLHttpRequest')
+  })
+
   xhr.open('GET', 'https://supersimplebackend.dev/products')
   xhr.send()
 }
