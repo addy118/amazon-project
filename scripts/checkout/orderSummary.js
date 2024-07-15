@@ -76,6 +76,7 @@ export function renderOrderSummary() {
 		`
 	})
 	
+	
 	// it should return the html for delivery options
 	function deliveryDetailsHTML(matchingProduct, cartItem) {
 		let html = '';

@@ -70,7 +70,7 @@ export function renderPaymentSummary() {
 					})
 				});
 				
-				const order = response.json();
+				const order = await response.json();
 				addOrder(order);
 				
 				window.location.href = 'orders.html'

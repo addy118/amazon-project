@@ -1,0 +1,11 @@
+renderOrders() {
+	orders loop:
+		orders.orderTime,
+		orders.totalCents,
+		orders.id
+		orders.products loop:
+			getProduct()
+			matchingProduct.name,
+			expectedDeliveryDate,
+			Quantity
+}
