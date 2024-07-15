@@ -1,15 +1,18 @@
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {orders} from "../data/orders.js";
 import {formatCurrency} from "./utils/money.js";
-import {products, getProduct} from "../data/products.js";
+import {products, getProduct, fetchProducts} from "../data/products.js";
 
 renderOrders()
-function renderOrders() {
+async function renderOrders() {
 	console.log('orders page initialized')
 	let ordersHTML = '';
-	orders.forEach((order) => {
+	
+	for (const order of orders) {
 		const orderedProducts = order.products;
 		const orderDate = dayjs(`${order.orderTime}`).format('MMMM DD, HH:mm');
+		
+		const orderedProductsHTML = await renderOrderedProducts(orderedProducts)
 		
 		ordersHTML += `
 			<div class="order-container">
@@ -32,32 +35,40 @@ function renderOrders() {
         </div>
 
         <div class="order-details-grid js-order-details-grid">
-        	${renderOrderedProducts(orderedProducts)}
+        	${orderedProductsHTML}
         </div>
       </div>
 		`
 		
 		document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
 		
-		console.log(order.id, formatCurrency(order.totalCostCents));
-		console.log(orderedProducts);
-	})
+		// console.log(order.id, formatCurrency(order.totalCostCents));
+		// console.log(orderedProducts);
+	}
 	
-	function renderOrderedProducts(orderedProducts) {
-		let productsHTML = '';
+	console.log('orders page rendered')
+}
+
+
+async function renderOrderedProducts(orderedProducts) {
+	let productsHTML = '';
+	
+	for (const orderedProduct of orderedProducts) {
+		// console.log(orderedProduct.productId)
+		// console.log('order done')
+		const arrivingDate = dayjs(`${orderedProduct.estimatedDeliveryTime}`).format('MMMM DD')
+		// product.name and product.image
+		const matchingItem = await getOrderedProduct(orderedProduct.productId)
+		// console.log(matchingItem)
 		
-		orderedProducts.forEach(orderedProduct => {
-			console.log(orderedProduct.productId)
-			console.log('order done')
-			const arrivingDate = dayjs(`${orderedProduct.estimatedDeliveryTime}`).format('MMMM DD')
-			productsHTML += `
+		productsHTML += `
 				<div class="product-image-container">
-		      <img src="images/products/athletic-cotton-socks-6-pairs.jpg">
+		      <img src="${matchingItem.image}">
 		    </div>
 		
 		    <div class="product-details">
 		      <div class="product-name">
-		        Product Name
+		        ${matchingItem.name}
 		      </div>
 		      <div class="product-delivery-date">
 		        Arriving on: ${arrivingDate}
@@ -79,10 +90,19 @@ function renderOrders() {
 		      </a>
 		    </div>
 			`
-		})
-		return productsHTML;
 	}
-	
-	console.log('orders page rendered')
+	return productsHTML;
+}
+
+
+async function getOrderedProduct(productId) {
+	await fetchProducts();
+	let matchingItem;
+	products.forEach(product => {
+		if (product.id === productId) {
+			matchingItem = product;
+		}
+	});
+	return matchingItem;
 }
 
