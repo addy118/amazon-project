@@ -121,7 +121,7 @@ export function renderOrderSummary() {
 				renderOrderSummary()    // used mvc instead of dom (above two lines)
 				renderPaymentSummary()
 				
-				// below code belongs to the amazon.html file, so it will show "cannot set properties to null" error
+				// below code belongs to the index.html file, so it will show "cannot set properties to null" error
 				// document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
 				// document.querySelector('.return-to-home-link').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
 				renderCheckoutHeader()
