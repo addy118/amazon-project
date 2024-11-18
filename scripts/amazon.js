@@ -4,7 +4,7 @@ import cart from '../data/cartClass.js';
 loadProducts(renderHomepage);
 
 function renderHomepage() {
-	document.querySelector('.js-cart-quantity').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))}`
+	document.querySelector('.js-cart-quantity').innerHTML = `${JSON.parse(localStorage.getItem('cartQty')) || 0}`
 	products.forEach((product) => {
 		document.querySelector('.js-product-grid').innerHTML += `
 			<div class="product-container">
@@ -59,14 +59,14 @@ function renderHomepage() {
 		  </div>
 		`
 	})
-	
+
 	// object of all the individual products' timeouts
 	const addedMessageTimeouts = {}
-	
+
 	function showAddedAnimation(productId) {
 		document.querySelector(`.js-added-to-cart-${productId}`)
 			.classList.add('js-show-added-to-cart')
-		
+
 		const prevTimeoutId = addedMessageTimeouts[productId]
 		if (prevTimeoutId) {
 			clearTimeout(prevTimeoutId)
@@ -75,7 +75,7 @@ function renderHomepage() {
 			document.querySelector(`.js-added-to-cart-${productId}`)
 				.classList.remove('js-show-added-to-cart')
 		}, 2000)
-		
+
 		// for deferred execution setTimeout() is used w/o delay
 		// deferred execution is similar to putting the particular code at the end for execution
 		// setTimeout(() => {
@@ -90,12 +90,12 @@ function renderHomepage() {
 		// 	addedMessageTimeouts[productId] = timeoutId
 		// })
 	}
-	
+
 	// here, the 'button' param in for.each((button) =>) represents a single add to cart button
 	document.querySelectorAll('.js-add-to-cart-button')
 		.forEach((button) => {
 			button.addEventListener('click', () => {
-				const {productId} = button.dataset;
+				const { productId } = button.dataset;
 				showAddedAnimation(productId)
 				cart.addToCart(productId)
 				cart.updateCartQuantity()

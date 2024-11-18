@@ -3,7 +3,7 @@ export function renderCheckoutHeader() {
 		.innerHTML = `
 			<div class="header-content">
 		    <div class="checkout-header-left-section">
-		      <a href="amazon.html">
+		      <a href="index.html">
 		        <img class="amazon-logo" src="images/amazon-logo.png" alt="">
 		        <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png" alt="">
 		      </a>
@@ -11,7 +11,7 @@ export function renderCheckoutHeader() {
 		
 		    <div class="checkout-header-middle-section">
 		      Checkout (<a class="return-to-home-link"
-		        href="amazon.html">${JSON.parse(localStorage.getItem('cartQty'))} items</a>)
+		        href="index.html">${JSON.parse(localStorage.getItem('cartQty')) || 0} items</a>)
 		    </div>
 		
 		    <div class="checkout-header-right-section">
