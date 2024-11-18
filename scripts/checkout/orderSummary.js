@@ -10,20 +10,6 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./header.js";
 
 export function renderOrderSummary() {
-  // console.group('Exercise 15')
-  // const today = dayjs();
-  // const afterFiveDays = today.add(5, 'day')
-  // console.log(afterFiveDays.format('MMMM DD'))
-  // console.log(today.add(1, 'month').format('MMMM DD'))
-  // console.log(today.subtract(1, 'month').format('MMMM DD'));
-  // console.log(today.format('dddd'))
-  //
-  // isSatSun(today)
-  // isSatSun(today.add(5, 'day'))
-  // isSatSun(today.add(6, 'day'))
-  // isSatSun(today.add(7, 'day'))
-  // console.groupEnd()
-
   // document.querySelector('.return-to-home-link').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
   let cartSummaryHTML = "";
 
@@ -122,7 +108,9 @@ export function renderOrderSummary() {
       cart.removeFromCart(productId);
       // const cartItemContainer = document.querySelector(`.js-cart-item-container-${productId}`)
       // cartItemContainer.remove()
-      renderOrderSummary(); // used mvc instead of dom (above two lines)
+
+      // used mvc instead of dom (above two lines)
+      renderOrderSummary();
       renderPaymentSummary();
 
       // below code belongs to the index.html file, so it will show "cannot set properties to null" error
@@ -163,15 +151,9 @@ export function renderOrderSummary() {
       cart.updateCartQuantity();
       renderOrderSummary();
       renderPaymentSummary();
+
       // document.querySelector('.return-to-home-link').innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
       renderCheckoutHeader();
-
-      // if (newQty >= 0 && newQty < 1000) {
-      // 	updateQty(productId, newQty)
-      // 	updateCartQuantity()
-      // 	document.querySelector('.return-to-home-link')
-      // 		.innerHTML = `${JSON.parse(localStorage.getItem('cartQty'))} items`
-      // }
     });
   });
 

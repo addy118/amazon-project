@@ -76,7 +76,7 @@ export function renderPaymentSummary() {
 
         window.location.href = "orders.html";
       } catch {
-        console.log("Unexpected Error! Please try again later.");
+        // console.log("Unexpected Error! Please try again later.");
       }
     });
 }

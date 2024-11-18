@@ -10,9 +10,9 @@ export default [
     rules: {
       eqeqeq: "warn",
       "no-unused-vars": ["warn"],
-      // "no-console": "warn",
-      semi: ["error", "always"],
-      indent: ["error", 2],
+      "no-console": "error",
+      "semi": ["error", "always"],
+      "indent": ["error", 2],
       "no-undef": "error",
       "no-empty": "warn",
       "prefer-const": "warn",

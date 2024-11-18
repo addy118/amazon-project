@@ -1,5 +1,3 @@
-// import {products} from "./products";
-
 export let cart;
 loadCart();
 export function loadCart() {
@@ -12,7 +10,8 @@ export function addToCart(productId) {
     `.js-quantity-selector-${productId}`
   );
 
-  // let matchingItem = getProduct(productId)     // we need to get the product from the cart array not from the products array
+  // we need to get the product from the cart array not from the products array
+  // let matchingItem = getProduct(productId)
   let matchingItem;
   cart.forEach(cartItem => {
     if (productId === cartItem.productId) {
@@ -86,7 +85,7 @@ export function loadBCart(func) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener("load", () => {
-    console.log(xhr.response);
+    // console.log(xhr.response);
     func();
   });
 
@@ -94,9 +93,8 @@ export function loadBCart(func) {
   xhr.send();
 }
 
-// ex. 18h
 export async function fetchCart() {
   const response = await fetch("https://supersimplebackend.dev/cart");
   const cart = await response.text();
-  console.log(`fetchCart(): ${cart}`);
+  // console.log(`fetchCart(): ${cart}`);
 }

@@ -5,7 +5,7 @@ import { products, getProduct, fetchProducts } from "../data/products.js";
 
 renderOrders();
 async function renderOrders() {
-  console.log("orders page initialized");
+  // console.log("orders page initialized");
   let ordersHTML = "";
 
   for (const order of orders) {
@@ -46,7 +46,7 @@ async function renderOrders() {
     // console.log(orderedProducts);
   }
 
-  console.log("orders page rendered");
+  // console.log("orders page rendered");
 }
 
 async function renderOrderedProducts(orderedProducts) {

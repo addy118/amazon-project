@@ -1,34 +1,31 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from "./checkout/header.js";
-import { loadProducts, fetchProducts } from "../data/products.js";
-import { loadBCart, fetchCart } from "../data/cart.js";
-// import '../data/car.js';
-// import '../data/backend-practice.js';
+import { fetchProducts } from "../data/products.js";
+import { fetchCart } from "../data/cart.js";
 
 async function loadPage() {
   try {
-    // throw 'error'
     await fetchProducts();
 
     await fetchCart().catch(error => {
-      console.log("Unexpected Error in Promise");
+      throw new Error("Unexpected Error in Promise");
     });
   } catch {
-    console.log("Unexpected Error in Synchronous Code");
+    throw new Error("Unexpected Error in Synchronous Code");
   }
 
   renderCheckoutHeader();
   renderOrderSummary();
   renderPaymentSummary();
 
-  console.log("async success");
+  // console.log("async success");
 }
 loadPage();
 
-// ex. 18i
 await Promise.all([fetchProducts(), fetchCart()]);
 
+// Promises & Callbacks
 // using Promises simultaneously
 // Promise.all([
 // 	fetchProducts().then(() => {
