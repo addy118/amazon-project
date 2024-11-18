@@ -1,6 +1,5 @@
 export function renderCheckoutHeader() {
-	document.querySelector('.js-checkout-header')
-		.innerHTML = `
+  document.querySelector(".js-checkout-header").innerHTML = `
 			<div class="header-content">
 		    <div class="checkout-header-left-section">
 		      <a href="index.html">
@@ -11,12 +10,12 @@ export function renderCheckoutHeader() {
 		
 		    <div class="checkout-header-middle-section">
 		      Checkout (<a class="return-to-home-link"
-		        href="index.html">${JSON.parse(localStorage.getItem('cartQty')) || 0} items</a>)
+		        href="index.html">${JSON.parse(localStorage.getItem("cartQty")) || 0} items</a>)
 		    </div>
 		
 		    <div class="checkout-header-right-section">
 		      <img src="images/icons/checkout-lock-icon.png" alt="">
 		    </div>
 		  </div>
-		`
+		`;
 }

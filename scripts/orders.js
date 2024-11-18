@@ -1,20 +1,20 @@
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {orders} from "../data/orders.js";
-import {formatCurrency} from "./utils/money.js";
-import {products, getProduct, fetchProducts} from "../data/products.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import { orders } from "../data/orders.js";
+import { formatCurrency } from "./utils/money.js";
+import { products, getProduct, fetchProducts } from "../data/products.js";
 
-renderOrders()
+renderOrders();
 async function renderOrders() {
-	console.log('orders page initialized')
-	let ordersHTML = '';
-	
-	for (const order of orders) {
-		const orderedProducts = order.products;
-		const orderDate = dayjs(`${order.orderTime}`).format('MMMM DD, HH:mm');
-		
-		const orderedProductsHTML = await renderOrderedProducts(orderedProducts)
-		
-		ordersHTML += `
+  console.log("orders page initialized");
+  let ordersHTML = "";
+
+  for (const order of orders) {
+    const orderedProducts = order.products;
+    const orderDate = dayjs(`${order.orderTime}`).format("MMMM DD, HH:mm");
+
+    const orderedProductsHTML = await renderOrderedProducts(orderedProducts);
+
+    ordersHTML += `
 			<div class="order-container">
         <div class="order-header">
           <div class="order-header-left-section">
@@ -38,30 +38,31 @@ async function renderOrders() {
         	${orderedProductsHTML}
         </div>
       </div>
-		`
-		
-		document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
-		
-		// console.log(order.id, formatCurrency(order.totalCostCents));
-		// console.log(orderedProducts);
-	}
-	
-	console.log('orders page rendered')
+		`;
+
+    document.querySelector(".js-orders-grid").innerHTML = ordersHTML;
+
+    // console.log(order.id, formatCurrency(order.totalCostCents));
+    // console.log(orderedProducts);
+  }
+
+  console.log("orders page rendered");
 }
 
-
 async function renderOrderedProducts(orderedProducts) {
-	let productsHTML = '';
-	
-	for (const orderedProduct of orderedProducts) {
-		// console.log(orderedProduct.productId)
-		// console.log('order done')
-		const arrivingDate = dayjs(`${orderedProduct.estimatedDeliveryTime}`).format('MMMM DD')
-		// product.name and product.image
-		const matchingItem = await getOrderedProduct(orderedProduct.productId)
-		// console.log(matchingItem)
-		
-		productsHTML += `
+  let productsHTML = "";
+
+  for (const orderedProduct of orderedProducts) {
+    // console.log(orderedProduct.productId)
+    // console.log('order done')
+    const arrivingDate = dayjs(
+      `${orderedProduct.estimatedDeliveryTime}`
+    ).format("MMMM DD");
+    // product.name and product.image
+    const matchingItem = await getOrderedProduct(orderedProduct.productId);
+    // console.log(matchingItem)
+
+    productsHTML += `
 				<div class="product-image-container">
 		      <img src="${matchingItem.image}">
 		    </div>
@@ -89,20 +90,18 @@ async function renderOrderedProducts(orderedProducts) {
 		        </button>
 		      </a>
 		    </div>
-			`
-	}
-	return productsHTML;
+			`;
+  }
+  return productsHTML;
 }
-
 
 async function getOrderedProduct(productId) {
-	await fetchProducts();
-	let matchingItem;
-	products.forEach(product => {
-		if (product.id === productId) {
-			matchingItem = product;
-		}
-	});
-	return matchingItem;
+  await fetchProducts();
+  let matchingItem;
+  products.forEach(product => {
+    if (product.id === productId) {
+      matchingItem = product;
+    }
+  });
+  return matchingItem;
 }
-

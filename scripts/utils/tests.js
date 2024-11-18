@@ -1,3 +1,3 @@
-import {testFormatCurrency} from "./tests/moneyTests.js";
+import { testFormatCurrency } from "./tests/moneyTests.js";
 
-testFormatCurrency()
+testFormatCurrency();
